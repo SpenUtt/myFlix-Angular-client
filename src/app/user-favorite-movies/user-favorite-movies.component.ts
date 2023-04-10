@@ -22,6 +22,7 @@ export class UserFavoriteMoviesComponent {
 
   ngOnInit(): void {
     this.getFavoriteMovies();
+    console.log(this.favoriteMovies)
   }
 
   getFavoriteMovies(): void {
