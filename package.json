@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "deploy": "ng deploy --base-href=/myFlix-Angular-client/",
-    "test": "ng test"
+    "test": "ng test",
+    "doc": "typedoc"
   },
   "private": true,
   "dependencies": {
