@@ -6,6 +6,12 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   templateUrl: './genre.component.html',
   styleUrls: ['./genre.component.scss'],
 })
+
+/**
+  *
+  * @param fetchApiData to use functions to make API call
+  * @param data specific Genre data, received through @MAT_DIALOG_DATA from MovieCard
+  */
 export class GenreComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -14,6 +20,10 @@ export class GenreComponent implements OnInit {
       Description: string;
     }
   ) {}
+
+  /**
+    * This function calls specified methods automatically straight after Component was mounted
+    */
 
   ngOnInit(): void {}
 }

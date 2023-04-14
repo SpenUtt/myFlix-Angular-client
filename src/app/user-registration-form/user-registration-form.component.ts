@@ -10,16 +10,37 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class UserRegistrationFormComponent implements OnInit {
  
+  /**
+    * The @userData object will then be passed into the API call in the registerUser function.
+    * @userData object contains: @Username (required), @Password (required), @Email (required), @Birthday
+    */
+
   @Input() userData = { Username: '', Password: '', Email: '', Birthday: '' };
 
+  /**
+    * Constructor arguments then will be avaliable through "this" method
+    * @param FetchApiData to use functions to make API call
+    * @param dialogRef to call dialog with login inputs
+    * @param snackBar to show the message, that user has successfuly loged in
+    */
+  
   constructor(
       public fetchApiData: FetchApiDataService,
       public dialogRef: MatDialogRef<UserRegistrationFormComponent>,
       public snackBar: MatSnackBar) { }
+  
+   /**
+    * This function calls specified methods automatically straight after Component was mounted
+    */
 
   ngOnInit(): void {
   }
 
+  /**
+    * This is the function responsible for sending the form inputs to the backend API
+    * @function registerUser
+    */
+   
   registerUser(): void {
       this.fetchApiData.userRegistration(this.userData).subscribe(() => {
     // Logic for a successful user registration goes here! (To be implemented)

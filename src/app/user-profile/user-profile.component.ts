@@ -11,15 +11,38 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent implements OnInit {
+
+  /**
+    * This variables will receive and keep info from API calls bellow
+    * @user - keeps info about specific user
+    * @movies - keeps array of JSON objects (all movie avaliable in database)
+    * @favorites - keeps array of favorite movies of specific user
+    */
+
   user: any = {};
+  movies: any[] = [];
   initialInput: any = {};
   favorites: any = [];
+
+  /**
+    * The updatedUser object will then be passed into the API call in the registerUser function.
+    * @userData object contains: @Username (required), @Password (required), @Email (required), @Birthday (optional)
+    */
+
   @Input() updatedUser = {
     Username: '',
     Password: '',
     Email: '',
     Birthday: '',
   };
+
+  /**
+    * Constructor arguments then will be avaliable through "this" method
+    * @param fetchApiData to use functions to make API call
+    * @param dialogRef: to refer to user profile component
+    * @param router to navigate the user to welcome screen after deleting account
+    * @param snackBar to show the message, that user has successfuly loged in
+    */
 
   constructor(
     public fetchApiData: FetchApiDataService,
@@ -28,10 +51,20 @@ export class UserProfileComponent implements OnInit {
     private router: Router
   ) {}
 
+  /**
+    * This function calls specified methods automatically straight after Component was mounted
+    */
+
   ngOnInit(): void {
     this.getUserInfo();
   }
-
+  
+  /**
+    * This function makes an API call to get User info from database
+    * @function getUserInfo
+    * @returns JSON object with user information
+    */
+  
   // Fetch user data via API
   getUserInfo(): void {
     this.fetchApiData.getUser().subscribe((resp: any) => {
@@ -44,6 +77,11 @@ export class UserProfileComponent implements OnInit {
       return this.user;
     });
   }
+
+  /**
+    * This function makes an API call to update user data, such as username, password, email, or birthday
+    * @function updateUserInfo
+    */
 
   // Update user data, such as username, password, email, or birthday
   updateUserInfo(): void {
@@ -71,6 +109,11 @@ export class UserProfileComponent implements OnInit {
       }
     });
   }
+
+  /**
+    * This function makes an API call to delete user data for the user that is logged in, redirects user to the welcome view
+    * @function deleteAccount
+    */
 
   // Delete user data for the user that is logged in
   deleteAccount(): void {
