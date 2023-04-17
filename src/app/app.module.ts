@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
@@ -25,11 +26,19 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { UserFavoriteMoviesComponent } from './user-favorite-movies/user-favorite-movies.component';
 import { DialogModule } from '@angular/cdk/dialog';
+import { AuthGuard } from './auth.guard';          
 
 const appRoutes: Routes = [
   { path: 'welcome', component: WelcomePageComponent },
-  { path: 'movies', component: MovieCardComponent },
-  { path: 'profile', component: UserProfileComponent },
+  { 
+    path: 'movies', 
+    component: MovieCardComponent, 
+    canActivate: [AuthGuard] }, // movies route definition, points to MovieCardComponent
+  {
+    path: 'profile',
+    component: UserProfileComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '', redirectTo: 'welcome', pathMatch: 'prefix' },
 ];
 
@@ -59,6 +68,7 @@ const appRoutes: Routes = [
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
+    MatDatepickerModule,
     MatSnackBarModule,
     MatIconModule
   ],
@@ -67,7 +77,8 @@ const appRoutes: Routes = [
       provide: MatDialogRef,
       useValue: {}
     },
-    DialogModule
+    DialogModule,
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })

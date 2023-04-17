@@ -50,6 +50,18 @@ export class FetchApiDataService {
     );
   }
 
+  private loggedInStatus = false;
+  setloggedInStatus(token: any) {
+    if (token) {
+      this.loggedInStatus = true;
+    }
+    if (!token) {
+      this.loggedInStatus = false;
+    }
+
+    return this.loggedInStatus;
+  }
+
   /**
     * This function makes an API call to user login endpoind on back end
     * @function userLogin

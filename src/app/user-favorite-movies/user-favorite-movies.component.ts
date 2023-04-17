@@ -12,8 +12,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./user-favorite-movies.component.scss'],
 })
 export class UserFavoriteMoviesComponent {
-  favorites: any[] = [];
   favoriteMovies: any[] = [];
+  user: any = {};
+
   constructor(
     public fetchApiData: FetchApiDataService,
     public dialog: MatDialog,
@@ -26,21 +27,17 @@ export class UserFavoriteMoviesComponent {
   }
 
   getFavoriteMovies(): void {
-    this.favorites, this.favoriteMovies = [];
-    this.fetchApiData.getUser().subscribe((resp: any) => {
-      this.favorites = resp.FavoriteMovies;
-      this.favorites.map((favorite: any) => {
-        console.log(favorite);
-        this.fetchApiData.getMovie(favorite).subscribe((resp: any) => {
-          this.favoriteMovies.push(resp);
-        });
+    this.fetchApiData.getUser().subscribe((user: any) => {
+      this.user = user;
+      this.fetchApiData.getAllMovies().subscribe((movies: any) => {
+        this.favoriteMovies = movies.filter((m: any) => user.FavoriteMovies.includes(m._id))
       });
     });
   }
 
   // check if a movie is a user's favorite
   isFavorite(id: string): boolean {
-    return this.favorites.includes(id);
+    return this.user.FavoriteMovies.includes(id);
   }
 
   // add a movie to a user's favorites
